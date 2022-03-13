@@ -25,7 +25,7 @@ class Dish_Recipe(models.Model):
 
     title = models.CharField(max_length=200)
     outlet = models.CharField(max_length=200, choices=OUTLET)
-    type_dish = models.CharField(choices=COURSE)
+    type_dish = models.CharField(max_length=200, choices=COURSE)
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
     sub_recipe = models.ForeignKey('SharedRecipe', on_delete=models.CASCADE)
@@ -43,7 +43,7 @@ class Dish_Recipe(models.Model):
 class SharedRecipe(models.Model):
     title = models.CharField(max_length=200)
     dish_title = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    type_dish = models.CharField(choices=COURSE)
+    type_dish = models.CharField(max_length=200, choices=COURSE)
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
     archived = models.BooleanField(default=False)
@@ -81,8 +81,10 @@ class Beverage(models.Model):
 
 
 class Pairing(models.Model):
-    dish_title = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    bev_title = models.ForeignKey(Beverage, on_delete=models.CASCADE)
+    dish_title = models.ForeignKey(
+        Dish_Recipe, on_delete=models.CASCADE, related_name='Pairing_Dish')
+    bev_title = models.ForeignKey(
+        Beverage, on_delete=models.CASCADE, related_name='Pairing_Drink')
 
     def __str__(self) -> str:
         return self.id
@@ -90,10 +92,14 @@ class Pairing(models.Model):
 
 class Menu(models.Model):
     title = models.CharField(max_length=200)
-    starters = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    main = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    dessert = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    drink = models.ForeignKey(Beverage, on_delete=models.CASCADE)
+    starters = models.ForeignKey(
+        Dish_Recipe, on_delete=models.CASCADE, related_name='Start')
+    main = models.ForeignKey(
+        Dish_Recipe, on_delete=models.CASCADE, related_name='Main')
+    dessert = models.ForeignKey(
+        Dish_Recipe, on_delete=models.CASCADE, related_name='Dess')
+    drink = models.ForeignKey(
+        Beverage, on_delete=models.CASCADE, related_name='Drink')
 
     def __str__(self) -> str:
         return self.title

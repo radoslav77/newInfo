@@ -11,35 +11,35 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class Dish_RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'outlet', 'title', 'type_dish')
+    list_display = ('id', 'outlet', 'title')
 
 
 admin.site.register(Dish_Recipe, Dish_RecipeAdmin)
 
 
 class BeverageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'brand', 'alcochol_type')
+    list_display = ('id', 'title', 'brand')
 
 
 admin.site.register(Beverage, BeverageAdmin)
 
 
 class SharedRecipeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'dish_title', 'type_dish')
+    list_display = ('id', 'title', 'dish_title')
 
 
 admin.site.register(SharedRecipe, SharedRecipeAdmin)
 
 
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'starter', 'main', 'dessert', 'drink')
+    list_display = ('id', 'title')
 
 
 admin.site.register(Menu, MenuAdmin)
 
 
 class PairingAdmin(admin.ModelAdmin):
-    list_display = ('dish', 'drink')
+    list_display = ('id',)
 
 
 admin.site.register(Pairing, PairingAdmin)
