@@ -26,6 +26,10 @@ def index(request):
     })
 
 
+def recipe(request):
+    return render(request, 'info/recipeInput.html')
+
+
 @csrf_protect
 def register(request):
     if request.user.is_authenticated:
@@ -58,6 +62,7 @@ def register(request):
     return render(request, 'info/register.html', {'form': form})
 
 
+@csrf_protect
 def login_user(request):
     if request.user.is_authenticated:
 
@@ -92,6 +97,7 @@ def login_user(request):
         return render(request, 'info/login.html')
 
 
+@csrf_protect
 def change_password(request, user):
 
     # print(user)

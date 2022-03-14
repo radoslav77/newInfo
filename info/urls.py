@@ -9,4 +9,5 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('password-change/<str:user>',
          views.change_password, name='change_password'),
+    path('recipeInput', views.recipe, name='recipe')
 ]
