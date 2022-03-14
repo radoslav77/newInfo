@@ -43,3 +43,10 @@ class PairingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Pairing, PairingAdmin)
+
+
+class DishAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+
+
+admin.site.register(Dish, DishAdmin)
