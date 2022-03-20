@@ -114,7 +114,7 @@ class Dish(models.Model):
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(SharedRecipe, on_delete=models.CASCADE)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
-                                related_name='qr_code', on_delete=models.CASCADE, default=False)
+                                related_name='qr_code', on_delete=models.CASCADE,)
 
     def __str__(self):
         return self.name

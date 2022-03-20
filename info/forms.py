@@ -35,7 +35,7 @@ class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ('name', 'pic', 'description',
-                  'recipe', 'sub_recipe',)
+                  'recipe', 'sub_recipe', 'qr_code')
 
 
 class MenuForm(forms.ModelForm):
