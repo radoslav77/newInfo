@@ -3,7 +3,7 @@ from pyexpat import model
 from tkinter import CASCADE
 from turtle import title
 from django.db import models
-from qrcode.models import GenarateCode
+from Qrcode.models import GenarateCode
 
 # Create your models here.
 
@@ -113,7 +113,7 @@ class Dish(models.Model):
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(SharedRecipe, on_delete=models.CASCADE)
     drcode = models.ForeignKey(
-        'qrcode.GenarateCode', verbose_name=GenarateCode, related_name='qrcode', on_delete=models.CASCADE)
+        'Qrcode.GenarateCode', verbose_name=GenarateCode, related_name='qrcode', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
