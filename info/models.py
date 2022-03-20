@@ -108,12 +108,13 @@ class Menu(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=200)
-    pic = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
+    pic = models.ForeignKey(
+        Dish_Recipe, on_delete=models.CASCADE, related_name='image')
     description = models.TextField(max_length=3000)
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(SharedRecipe, on_delete=models.CASCADE)
-    drcode = models.ForeignKey(
-        'Qrcode.GenarateCode', verbose_name=GenarateCode, related_name='qrcode', on_delete=models.CASCADE)
+    qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
+                                related_name='qr_code', on_delete=models.CASCADE, default=False)
 
     def __str__(self):
         return self.name

@@ -20,9 +20,11 @@ from .forms import *
 
 def index(request):
     neme = 'Hello There!!!'
-
+    form = DishForm()
+    print(DishForm())
     return render(request, 'info/index.html', {
-        'name': neme
+        'name': neme,
+        'form': form
     })
 
 

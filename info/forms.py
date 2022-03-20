@@ -14,7 +14,7 @@ class registrationForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
-class SharedRecipe(forms.ModelForm):
+class SharedRecipeForm(forms.ModelForm):
 
     class Meta:
         model = SharedRecipe
@@ -23,7 +23,7 @@ class SharedRecipe(forms.ModelForm):
                   'type_dish', 'recipe', 'method')
 
 
-class Dish_Recipe(forms.ModelForm):
+class Dish_RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Dish_Recipe
@@ -31,21 +31,28 @@ class Dish_Recipe(forms.ModelForm):
                   'recipe',  'method', 'sub_recipe', 'picture',)
 
 
-class Menu(forms.ModelForm):
+class DishForm(forms.ModelForm):
+    class Meta:
+        model = Dish
+        fields = ('name', 'pic', 'description',
+                  'recipe', 'sub_recipe',)
+
+
+class MenuForm(forms.ModelForm):
 
     class Meta:
         model = Menu
         fields = ('title', 'starters', 'main', 'dessert', 'drink')
 
 
-class Beverage(forms.ModelForm):
+class BeverageForm(forms.ModelForm):
 
     class Meta:
         model = Beverage
         fields = ('title', 'alcohol_type', 'description', 'brand', 'alergens')
 
 
-class Pairing(forms.ModelForm):
+class PairingForm(forms.ModelForm):
 
     class Meta:
         model = Pairing
