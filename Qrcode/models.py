@@ -9,7 +9,8 @@ OUTLET = [
     ('Arch Bar', 'Arch Bar'),
     ('Wellington Lounge', 'Wellington Lounge'),
     ('Number One', 'Number One'),
-    ('BQT', 'BQT')
+    ('BQT', 'BQT'),
+    ('Amenities', 'Amenities')
 ]
 
 

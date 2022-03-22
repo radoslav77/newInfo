@@ -11,6 +11,7 @@ COURSE = [
     ('Starter', 'Starter'),
     ('Main', 'Main'),
     ('Dessert', 'Dessert'),
+    ('Amenities', 'Amenities')
 ]
 
 
@@ -21,7 +22,8 @@ class Dish_Recipe(models.Model):
         ('Arch Bar', 'Arch Bar'),
         ('Wellington Lounge', 'Wellington Lounge'),
         ('Number One', 'Number One'),
-        ('BQT', 'BQT')
+        ('BQT', 'BQT'),
+        ('Amenities', 'Amenities')
     ]
 
     title = models.CharField(max_length=200)
