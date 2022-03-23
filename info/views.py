@@ -29,23 +29,39 @@ def index(request):
 
 
 def input_dish(request):
-    return render(request, 'info/recipeInput.html')
+    form = DishForm()
+    return render(request, 'info/input_dish.html', {
+        'form': form
+    })
 
 
 def input_subrecipe(request):
-    return render(request, 'info/recipeInput.html')
+    form = SharedRecipeForm()
+    return render(request, 'info/input_subrecipe.html', {
+        'form': form
+    })
 
 
 def menu(request):
-    return render(request, 'info/recipeInput.html')
+    form = MenuForm()
+    return render(request, 'info/menu.html', {
+        'form': form
+    })
 
 
 def beveridge(request):
-    return render(request, 'info/recipeInput.html')
+    form = BeverageForm()
+    return render(request, 'info/beveridge.html', {
+        'form': form
+    })
 
 
 def recipe(request):
-    return render(request, 'info/recipeInput.html')
+
+    form = Dish_RecipeForm()
+    return render(request, 'info/recipeInput.html', {
+        'form': form
+    })
 
 
 @csrf_protect
