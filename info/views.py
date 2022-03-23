@@ -28,6 +28,22 @@ def index(request):
     })
 
 
+def input_dish(request):
+    return render(request, 'info/recipeInput.html')
+
+
+def input_subrecipe(request):
+    return render(request, 'info/recipeInput.html')
+
+
+def menu(request):
+    return render(request, 'info/recipeInput.html')
+
+
+def beveridge(request):
+    return render(request, 'info/recipeInput.html')
+
+
 def recipe(request):
     return render(request, 'info/recipeInput.html')
 
