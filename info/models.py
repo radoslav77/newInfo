@@ -31,7 +31,8 @@ class Dish_Recipe(models.Model):
     type_dish = models.CharField(max_length=200, choices=COURSE)
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
-    sub_recipe = models.ForeignKey('SharedRecipe', on_delete=models.CASCADE)
+    # sub_recipe = models.ForeignKey(
+    #    'SharedRecipe', on_delete = models.CASCADE, default = False)
     picture = models.ImageField(upload_to='media')
     archived = models.BooleanField(default=False)
     shared = models.BooleanField(default=False)

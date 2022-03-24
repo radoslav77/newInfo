@@ -28,7 +28,7 @@ class Dish_RecipeForm(forms.ModelForm):
     class Meta:
         model = Dish_Recipe
         fields = ('title', 'type_dish', 'outlet',
-                  'recipe',  'method', 'sub_recipe', 'picture',)
+                  'recipe',  'method',  'picture',)
 
 
 class DishForm(forms.ModelForm):

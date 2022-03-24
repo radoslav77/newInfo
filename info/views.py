@@ -28,13 +28,36 @@ def index(request):
     })
 
 
+@csrf_protect
 def input_dish(request):
-    form = DishForm()
+
+    if request.method == 'POST':
+        form = DishForm(request.POST, request.FILES)
+        #form1 = Recipe(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+            #data1 = form1.save(commit=False)
+            # data1.save()
+
+            #checked = request.POST.get('addrecipe', False)
+
+            # if checked == 'on':
+            #    for_dish = request.POST['title_dish']
+            #    form = Recipe()
+            #    return render(request, 'menus/recipe-input.html', {
+            #               'title': for_dish,
+            #                'form': form
+            #            })
+
+            return redirect('index')
+
     return render(request, 'info/input_dish.html', {
-        'form': form
+        'form': DishForm()
     })
 
 
+@csrf_protect
 def input_subrecipe(request):
     form = SharedRecipeForm()
     return render(request, 'info/input_subrecipe.html', {
@@ -42,6 +65,7 @@ def input_subrecipe(request):
     })
 
 
+@csrf_protect
 def menu(request):
     form = MenuForm()
     return render(request, 'info/menu.html', {
@@ -49,18 +73,41 @@ def menu(request):
     })
 
 
+@csrf_protect
 def beveridge(request):
     form = BeverageForm()
     return render(request, 'info/beveridge.html', {
         'form': form
     })
 
+# Need to work on the commit of the form !!!!
 
+
+@csrf_protect
 def recipe(request):
+    if request.method == 'POST':
+        form = Dish_RecipeForm(request.POST, request.FILES)
+        #form1 = Recipe(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+            #data1 = form1.save(commit=False)
+            # data1.save()
 
-    form = Dish_RecipeForm()
+            #checked = request.POST.get('addrecipe', False)
+
+            # if checked == 'on':
+            #    for_dish = request.POST['title_dish']
+            #    form = Recipe()
+            #    return render(request, 'menus/recipe-input.html', {
+            #               'title': for_dish,
+            #                'form': form
+            #            })
+
+            return redirect('index')
     return render(request, 'info/recipeInput.html', {
-        'form': form
+        'form': Dish_RecipeForm()
+
     })
 
 
