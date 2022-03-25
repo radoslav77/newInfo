@@ -59,6 +59,27 @@ def input_dish(request):
 
 @csrf_protect
 def input_subrecipe(request):
+    if request.method == 'POST':
+        form = SharedRecipeForm(request.POST, request.FILES)
+        #form1 = Recipe(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+
+            #data1 = form1.save(commit=False)
+            # data1.save()
+
+            #checked = request.POST.get('addrecipe', False)
+
+            # if checked == 'on':
+            #    for_dish = request.POST['title_dish']
+            #    form = Recipe()
+            #    return render(request, 'menus/recipe-input.html', {
+            #               'title': for_dish,
+            #                'form': form
+            #            })
+
+            return redirect('index')
     form = SharedRecipeForm()
     return render(request, 'info/input_subrecipe.html', {
         'form': form
@@ -67,6 +88,7 @@ def input_subrecipe(request):
 
 @csrf_protect
 def menu(request):
+
     form = MenuForm()
     return render(request, 'info/menu.html', {
         'form': form
