@@ -23,19 +23,16 @@ class SharedRecipeForm(forms.ModelForm):
                   'type_dish', 'recipe', 'method')
 
 
-class Dish_RecipeForm(forms.ModelForm):
-
+class RecipeForm(forms.ModelForm):
     class Meta:
         model = Dish_Recipe
-        fields = ('title', 'type_dish', 'outlet',
-                  'recipe',  'method',  'picture')
+        fields = '__all__'
 
 
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ('name', 'pic', 'description',
-                  'recipe', 'sub_recipe', 'qr_code')
+        fields = '__all__'
 
 
 class MenuForm(forms.ModelForm):

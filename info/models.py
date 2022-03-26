@@ -1,4 +1,5 @@
 from distutils.command.upload import upload
+from email.policy import default
 from pyexpat import model
 from tkinter import CASCADE
 from turtle import title
@@ -13,27 +14,26 @@ COURSE = [
     ('Dessert', 'Dessert'),
     ('Amenities', 'Amenities')
 ]
+OUTLET = [
+    ('Room Service', 'Room Service'),
+    ('Thoe', 'Thoe Randal'),
+    ('Arch Bar', 'Arch Bar'),
+    ('Wellington Lounge', 'Wellington Lounge'),
+    ('Number One', 'Number One'),
+    ('BQT', 'BQT'),
+    ('Amenities', 'Amenities')
+]
 
 
 class Dish_Recipe(models.Model):
-    OUTLET = [
-        ('Room Service', 'Room Service'),
-        ('Thoe', 'Thoe Randal'),
-        ('Arch Bar', 'Arch Bar'),
-        ('Wellington Lounge', 'Wellington Lounge'),
-        ('Number One', 'Number One'),
-        ('BQT', 'BQT'),
-        ('Amenities', 'Amenities')
-    ]
 
     title = models.CharField(max_length=200)
-    outlet = models.CharField(max_length=200, choices=OUTLET)
-    type_dish = models.CharField(max_length=200, choices=COURSE)
+    outlet = models.CharField(max_length=200, choices=OUTLET, default='Recipe')
+    type_dish = models.CharField(
+        max_length=200, choices=COURSE, default='Recipe')
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
-    # sub_recipe = models.ForeignKey(
-    #    'SharedRecipe', on_delete=models.CASCADE, null=True)
-    picture = models.ImageField(upload_to='media')
+
     archived = models.BooleanField(null=True)
     shared = models.BooleanField(null=True)
 
@@ -112,11 +112,11 @@ class Menu(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=200)
-    pic = models.ForeignKey(
-        Dish_Recipe, on_delete=models.CASCADE, related_name='image')
+    image = models.FileField(upload_to='media')
     description = models.TextField(max_length=3000)
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    sub_recipe = models.ForeignKey(SharedRecipe, on_delete=models.CASCADE)
+    sub_recipe = models.ForeignKey(
+        SharedRecipe, on_delete=models.CASCADE, default=0)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
                                 related_name='qr_code', on_delete=models.CASCADE, default=0)
 

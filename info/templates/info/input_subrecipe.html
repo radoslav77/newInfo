@@ -3,7 +3,7 @@
 {% block body %}
 <form action="{% url 'input_subrecipe' %}" method="post">
     {% csrf_token %}
-    {{form}}
+    {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
 

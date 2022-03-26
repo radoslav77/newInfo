@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "info/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Document</title>
-</head>
+{% block body %}
 
-<body>
-    <form action="{% url 'recipe' %}" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit">
-    </form>
-    <br><br><br><br><br><br><br><br>
+<form action="{% url 'recipe_input' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
 
 
-</body>
-
-</html>
+{% endblock %}

@@ -63,6 +63,7 @@ def input_subrecipe(request):
         form = SharedRecipeForm(request.POST, request.FILES)
         if form.is_valid:
             data = form.save(commit=False)
+            print(data)
             data.save()
             return redirect('index')
     form = SharedRecipeForm()
@@ -88,35 +89,6 @@ def beveridge(request):
     })
 
 # Need to work on the commit of the form !!!!
-
-
-@csrf_protect
-def recipe(request):
-    if request.method == 'POST':
-        form = Dish_RecipeForm(request.POST, request.FILES)
-        # form1 = Recipe(request.POST, request.FILES)
-        if form.is_valid:
-            data = form.save(commit=False)
-            data.save()
-            # data1 = form1.save(commit=False)
-            # data1.save()
-
-            # checked = request.POST.get('addrecipe', False)
-
-            # if checked == 'on':
-            #    for_dish = request.POST['title_dish']
-            #    form = Recipe()
-            #    return render(request, 'menus/recipe-input.html', {
-            #               'title': for_dish,
-            #                'form': form
-            #            })
-
-            return redirect('index')
-
-    return render(request, 'info/recipeInput.html', {
-        'form': Dish_RecipeForm()
-
-    })
 
 
 @csrf_protect
@@ -212,3 +184,17 @@ def logout_user(request):
         return redirect('login_user')
     else:
         return redirect('login_user')
+
+
+def recipe_input(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            print(data)
+            data.save()
+            return redirect('index')
+    form = RecipeForm()
+    return render(request, 'info/recipeInput.html', {
+        'form': form
+    })
