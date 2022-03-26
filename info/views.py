@@ -33,14 +33,14 @@ def input_dish(request):
 
     if request.method == 'POST':
         form = DishForm(request.POST, request.FILES)
-        #form1 = Recipe(request.POST, request.FILES)
+        # form1 = Recipe(request.POST, request.FILES)
         if form.is_valid:
             data = form.save(commit=False)
             data.save()
-            #data1 = form1.save(commit=False)
+            # data1 = form1.save(commit=False)
             # data1.save()
 
-            #checked = request.POST.get('addrecipe', False)
+            # checked = request.POST.get('addrecipe', False)
 
             # if checked == 'on':
             #    for_dish = request.POST['title_dish']
@@ -61,24 +61,9 @@ def input_dish(request):
 def input_subrecipe(request):
     if request.method == 'POST':
         form = SharedRecipeForm(request.POST, request.FILES)
-        #form1 = Recipe(request.POST, request.FILES)
         if form.is_valid:
             data = form.save(commit=False)
             data.save()
-
-            #data1 = form1.save(commit=False)
-            # data1.save()
-
-            #checked = request.POST.get('addrecipe', False)
-
-            # if checked == 'on':
-            #    for_dish = request.POST['title_dish']
-            #    form = Recipe()
-            #    return render(request, 'menus/recipe-input.html', {
-            #               'title': for_dish,
-            #                'form': form
-            #            })
-
             return redirect('index')
     form = SharedRecipeForm()
     return render(request, 'info/input_subrecipe.html', {
@@ -109,14 +94,14 @@ def beveridge(request):
 def recipe(request):
     if request.method == 'POST':
         form = Dish_RecipeForm(request.POST, request.FILES)
-        #form1 = Recipe(request.POST, request.FILES)
+        # form1 = Recipe(request.POST, request.FILES)
         if form.is_valid:
             data = form.save(commit=False)
             data.save()
-            #data1 = form1.save(commit=False)
+            # data1 = form1.save(commit=False)
             # data1.save()
 
-            #checked = request.POST.get('addrecipe', False)
+            # checked = request.POST.get('addrecipe', False)
 
             # if checked == 'on':
             #    for_dish = request.POST['title_dish']
@@ -127,6 +112,7 @@ def recipe(request):
             #            })
 
             return redirect('index')
+
     return render(request, 'info/recipeInput.html', {
         'form': Dish_RecipeForm()
 
@@ -140,8 +126,8 @@ def register(request):
 
     elif request.method == 'POST':
         form = registrationForm(request.POST or None)
-        #group_name = request.POST['groups']
-        #groups = Group.objects.all()
+        # group_name = request.POST['groups']
+        # groups = Group.objects.all()
         # print(groups)
         # print(group_name)
         name = []
@@ -155,7 +141,7 @@ def register(request):
 
             user = authenticate(username=user.username,
                                 password=raw_password)
-            #group = Group.objects.get(name=group_name)
+            # group = Group.objects.get(name=group_name)
             # user.groups.add(group)
             # login user
             login(request, user)

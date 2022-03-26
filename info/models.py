@@ -32,10 +32,10 @@ class Dish_Recipe(models.Model):
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
     # sub_recipe = models.ForeignKey(
-    #    'SharedRecipe', on_delete=models.CASCADE, default=0)
+    #    'SharedRecipe', on_delete=models.CASCADE, null=True)
     picture = models.ImageField(upload_to='media')
-    archived = models.BooleanField(default=False)
-    shared = models.BooleanField(default=False)
+    archived = models.BooleanField(null=True)
+    shared = models.BooleanField(null=True)
 
     def __str__(self):
         return self.title
@@ -118,7 +118,7 @@ class Dish(models.Model):
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(SharedRecipe, on_delete=models.CASCADE)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
-                                related_name='qr_code', on_delete=models.CASCADE,)
+                                related_name='qr_code', on_delete=models.CASCADE, default=0)
 
     def __str__(self):
         return self.name
