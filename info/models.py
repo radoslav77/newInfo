@@ -112,7 +112,7 @@ class Menu(models.Model):
 
 class Dish(models.Model):
     name = models.CharField(max_length=200)
-    image = models.FileField(upload_to='media')
+    image = models.ImageField(null=True, blank=True, upload_to='media')
     description = models.TextField(max_length=3000)
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(
