@@ -33,7 +33,7 @@ class Dish_Recipe(models.Model):
         max_length=200, choices=COURSE, default='Recipe')
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
-
+    date = models.DateField(auto_now_add=True, null=True)
     archived = models.BooleanField(null=True)
     shared = models.BooleanField(null=True)
 
@@ -52,6 +52,7 @@ class SharedRecipe(models.Model):
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
     archived = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f'{self.title, self.dish_title}'
@@ -77,6 +78,7 @@ class Beverage(models.Model):
     description = models.TextField(max_length=4000)
     alcohol_type = models.CharField(max_length=200, choices=TYPE)
     alergens = models.CharField(max_length=1000)
+    date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.title
@@ -105,6 +107,7 @@ class Menu(models.Model):
         Dish_Recipe, on_delete=models.CASCADE, related_name='Dess')
     drink = models.ForeignKey(
         Beverage, on_delete=models.CASCADE, related_name='Drink')
+    date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self) -> str:
         return self.title
@@ -119,6 +122,7 @@ class Dish(models.Model):
         SharedRecipe, on_delete=models.CASCADE, default=0)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
                                 related_name='qr_code', on_delete=models.CASCADE, default=0)
+    date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name

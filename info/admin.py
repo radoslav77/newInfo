@@ -11,7 +11,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class Dish_RecipeAdmin(admin.ModelAdmin):
-    list_display = ('id',  'title')
+    list_display = ('id',  'title', 'date')
 
 
 admin.site.register(Dish_Recipe, Dish_RecipeAdmin)
@@ -32,7 +32,7 @@ admin.site.register(SharedRecipe, SharedRecipeAdmin)
 
 
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'date')
 
 
 admin.site.register(Menu, MenuAdmin)
