@@ -19,4 +19,4 @@ def index(request, url):
         img.save(stream)
         context["svg"] = stream.getvalue().decode()
 
-    return render(request, "info/index.html", context=context)
+    return render(request, "Qrcode/code.html", context=context)

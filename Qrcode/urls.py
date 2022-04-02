@@ -4,5 +4,5 @@ from . import views
 from info import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('qr_code', views.index, name='code'),
 ]
