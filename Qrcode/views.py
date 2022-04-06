@@ -8,7 +8,7 @@ import qrcode.image.svg
 from io import BytesIO
 
 
-def index(request, url):
+def code(request):
     context = {}
     if request.method == "POST":
         #factory = SvgImage
@@ -19,4 +19,4 @@ def index(request, url):
         img.save(stream)
         context["svg"] = stream.getvalue().decode()
 
-    return render(request, "Qrcode/code.html", context=context)
+    return render(request, "Qrcode/code.html", {'context': context})

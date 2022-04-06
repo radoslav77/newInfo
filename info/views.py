@@ -50,7 +50,7 @@ def input_dish(request):
             #                'form': form
             #            })
 
-            return redirect('index')
+            return redirect('info:index')
 
     return render(request, 'info/input_dish.html', {
         'form': DishForm()
