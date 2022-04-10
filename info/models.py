@@ -120,9 +120,9 @@ class Dish(models.Model):
     description = models.TextField(max_length=3000)
     recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
     sub_recipe = models.ForeignKey(
-        SharedRecipe, on_delete=models.CASCADE, default=0)
+        SharedRecipe, on_delete=models.CASCADE, default=0, blank=True)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
-                                related_name='qr_code', on_delete=models.CASCADE, default=0)
+                                related_name='qr_code', on_delete=models.CASCADE, default=0, blank=True)
     date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):

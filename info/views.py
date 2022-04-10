@@ -193,7 +193,7 @@ def recipe_input(request):
             data = form.save(commit=False)
             print(data)
             data.save()
-            return redirect('index')
+            return redirect('info:index')
     form = RecipeForm()
     return render(request, 'info/recipeInput.html', {
         'form': form

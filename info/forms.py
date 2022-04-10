@@ -27,12 +27,21 @@ class RecipeForm(forms.ModelForm):
     class Meta:
         model = Dish_Recipe
         fields = '__all__'
+    # remove requarments of the field
+
+    def __init__(self, *args, **kwargs):
+        super(RecipeForm, self).__init__(*args, *kwargs)
+        self.fields['dish_title'].required = False
 
 
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(DishForm, self).__init__(*args, *kwargs)
+        self.fields['recipe'].required = False
 
 
 class MenuForm(forms.ModelForm):
