@@ -50,3 +50,10 @@ class DishAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Dish, DishAdmin)
+
+
+class CaloryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'item', 'calory')
+
+
+admin.site.register(Calory, CaloryAdmin)

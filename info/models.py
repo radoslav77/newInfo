@@ -27,6 +27,7 @@ OUTLET = [
 
 class Dish_Recipe(models.Model):
 
+    dish_title = models.CharField(max_length=200, default='new')
     title = models.CharField(max_length=200)
     outlet = models.CharField(max_length=200, choices=OUTLET, default='Recipe')
     type_dish = models.CharField(
@@ -126,3 +127,17 @@ class Dish(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Calory(models.Model):
+    UNIT = [
+        ('g', 'g'),
+        ('kg', 'kg')
+    ]
+    item = models.CharField(max_length=200)
+    unit = models.CharField(max_length=200, choices=UNIT)
+    amout = models.IntegerField()
+    calory = models.FloatField()
+
+    def __str__(self):
+        return self.item
