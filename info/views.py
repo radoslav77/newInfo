@@ -72,6 +72,33 @@ def input_subrecipe(request):
     })
 
 
+def recipe_input(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            print(data)
+            data.save()
+            return redirect('info:index')
+    form = RecipeForm()
+    return render(request, 'info/recipeInput.html', {
+        'form': form
+    })
+
+
+def calory_input(request):
+    if request.method == 'POST':
+        form = CaloryForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+            return redirect('info:index')
+    form = CaloryForm()
+    return render(request, 'info/calory-input.html', {
+        'form': form
+    })
+
+
 @csrf_protect
 def menu(request):
 
@@ -184,17 +211,3 @@ def logout_user(request):
         return redirect('login_user')
     else:
         return redirect('login_user')
-
-
-def recipe_input(request):
-    if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid:
-            data = form.save(commit=False)
-            print(data)
-            data.save()
-            return redirect('info:index')
-    form = RecipeForm()
-    return render(request, 'info/recipeInput.html', {
-        'form': form
-    })

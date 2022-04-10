@@ -1,0 +1,11 @@
+{% extends "info/base.html" %}
+
+{% block body %}
+<form action="{% url 'info:calory_input' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}

@@ -63,3 +63,9 @@ class PairingForm(forms.ModelForm):
     class Meta:
         model = Pairing
         fields = ('dish_title', 'bev_title')
+
+
+class CaloryForm(forms.ModelForm):
+    class Meta:
+        model = Calory
+        fields = '__all__'
