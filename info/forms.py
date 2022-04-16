@@ -50,6 +50,10 @@ class MenuForm(forms.ModelForm):
         model = Menu
         fields = ('title', 'starters', 'main', 'dessert', 'drink')
 
+    def __init__(self, *args, **kwargs):
+        super(MenuForm, self).__init__(*args, *kwargs)
+        self.fields['drink'].required = False
+
 
 class BeverageForm(forms.ModelForm):
 

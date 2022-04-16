@@ -1,7 +1,43 @@
 {% extends "info/base.html" %}
 
 {% block body %}
+<form action="{% url 'info:menu' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
 
-{{form.as_p}}
+
+<script>
+    const Calories_data = ('/calory_data')
+    GetCaloryData(Calories_data)
+
+    async function GetCaloryData(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+
+        data.forEach(entry => {
+            //const titleDrink = document.getElementById('drinkTitle')
+            // const entryInfo = document.getElementById('try')
+            //let titles = []
+            //titles.push(entry.title)
+            // if (entry.title == titleDrink.innerHTML) {
+            //    entryInfo.innerHTML = entry.ingredients
+            // }
+
+        });
+        console.log(data)
+    }
+
+    const Food_API_URL = ('https://foodapi.calorieking.com/v1')
+    getDataUrl(Food_API_URL)
+
+    async function getDataUrl(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+
+        console.log(data)
+    }
+</script>
 
 {% endblock %}

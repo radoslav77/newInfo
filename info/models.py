@@ -107,7 +107,7 @@ class Menu(models.Model):
     dessert = models.ForeignKey(
         Dish_Recipe, on_delete=models.CASCADE, related_name='Dess')
     drink = models.ForeignKey(
-        Beverage, on_delete=models.CASCADE, related_name='Drink')
+        Beverage, on_delete=models.CASCADE, related_name='Drink', default=0)
     date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self) -> str:
@@ -132,7 +132,9 @@ class Dish(models.Model):
 class Calory(models.Model):
     UNIT = [
         ('g', 'g'),
-        ('kg', 'kg')
+        ('kg', 'kg'),
+        ('ml', 'ml'),
+        ('lit', 'lit')
     ]
     item = models.CharField(max_length=200)
     unit = models.CharField(max_length=200, choices=UNIT)

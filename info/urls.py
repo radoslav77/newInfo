@@ -18,4 +18,8 @@ urlpatterns = [
     path('recipeInput', views.recipe_input, name='recipe_input'),
     path('calory-input', views.calory_input, name='calory_input'),
 
+
+    # API
+    path('calory_data', views.calory_data, name='calory_data'),
+
 ]

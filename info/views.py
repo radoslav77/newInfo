@@ -1,5 +1,5 @@
 from functools import cached_property
-from django.forms.widgets import CheckboxInput
+
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
@@ -92,7 +92,7 @@ def calory_input(request):
         if form.is_valid:
             data = form.save(commit=False)
             data.save()
-            return redirect('info:index')
+            return redirect('info:calory_input')
     form = CaloryForm()
     return render(request, 'info/calory-input.html', {
         'form': form
@@ -101,7 +101,12 @@ def calory_input(request):
 
 @csrf_protect
 def menu(request):
-
+    if request.method == 'POST':
+        form = MenuForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+        return redirect('info:index')
     form = MenuForm()
     return render(request, 'info/menu.html', {
         'form': form
@@ -211,3 +216,18 @@ def logout_user(request):
         return redirect('login_user')
     else:
         return redirect('login_user')
+
+
+# API views
+def calory_data(request):
+    data = Calory.objects.all()
+    calory_data = []
+    for i in data:
+        calory_data.append({
+            'title': i.item,
+            'unit': i.unit,
+            'amount': i.amout,
+            'Kcal': i.calory,
+        })
+    # print(recipe_data)
+    return HttpResponse(json.dumps(calory_data), content_type="application/json")
