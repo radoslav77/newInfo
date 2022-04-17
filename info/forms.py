@@ -41,7 +41,7 @@ class DishForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DishForm, self).__init__(*args, *kwargs)
-        self.fields['recipe'].required = False
+        self.fields['choose_recipe'].required = False
 
 
 class MenuForm(forms.ModelForm):

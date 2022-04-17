@@ -1,7 +1,7 @@
 {% extends "info/base.html" %}
 
 {% block body %}
-<form action="{% url 'input_subrecipe' %}" method="post">
+<form action="{% url 'info:input_subrecipe' %}" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Submit">

@@ -17,6 +17,8 @@ urlpatterns = [
     path('beveridge', views.beveridge, name='beveridge'),
     path('recipeInput', views.recipe_input, name='recipe_input'),
     path('calory-input', views.calory_input, name='calory_input'),
+    path('dishes', views.dishes, name='dishes'),
+    path('detail/<str:title>', views.detail, name='detail'),
 
 
     # API

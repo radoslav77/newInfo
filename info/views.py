@@ -28,6 +28,37 @@ def index(request):
     })
 
 
+def detail(requets, title):
+    detail_recipe = Dish_Recipe.objects.filter(title=title)
+    for i in detail_recipe:
+        detail_subrecipe = SharedRecipe.objects.filter(dish_title=i.id)
+        for r in detail_subrecipe:
+            print(r.recipe)
+    # print(detail_subrecipe)
+    return redirect('info:index')
+
+
+def dishes(request):
+    dish_data = Dish_Recipe.objects.all()
+    starters = []
+    mains = []
+    desserts = []
+    for d in dish_data:
+        if d.type_dish == 'Starter':
+            starters.append(d)
+        elif d.type_dish == 'Main':
+            mains.append(d)
+        else:
+            desserts.append(d)
+    print(desserts)
+    # return redirect('info:index')
+    return render(request, 'info/dishes.html', {
+        'starters': starters,
+        'mains': mains,
+        'desserts': desserts
+    })
+
+
 @csrf_protect
 def input_dish(request):
 
@@ -65,7 +96,7 @@ def input_subrecipe(request):
             data = form.save(commit=False)
             print(data)
             data.save()
-            return redirect('index')
+            return redirect('info:index')
     form = SharedRecipeForm()
     return render(request, 'info/input_subrecipe.html', {
         'form': form

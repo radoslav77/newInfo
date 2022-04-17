@@ -1,0 +1,33 @@
+{% extends "info/base.html" %}
+
+{% block body %}
+
+<ul>
+    <h2>starters</h2>
+    {% for i in starters %}
+    <a href="{% url 'info:detail' i %}">
+        <li>{{i}}</li>
+    </a>
+    {% endfor %}
+</ul>
+<ul>
+    <h2>Mains</h2>
+    {% for m in mains %}
+    <a href="{% url 'info:detail' m %}">
+        <li>{{m}}</li>
+    </a>
+    {% endfor %}
+</ul>
+<ul>
+    <h2>Desserts</h2>
+    {% for d in desserts %}
+    <a href="{% url 'info:detail' d %}">
+        <li>{{d.outlet}}</li>
+    </a>
+    {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}
