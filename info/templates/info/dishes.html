@@ -22,7 +22,7 @@
     <h2>Desserts</h2>
     {% for d in desserts %}
     <a href="{% url 'info:detail' d %}">
-        <li>{{d.outlet}}</li>
+        <li>{{d}}</li>
     </a>
     {% endfor %}
 </ul>

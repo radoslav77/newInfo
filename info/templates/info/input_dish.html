@@ -7,6 +7,10 @@
     {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
+{% if error %}
 
+<h3>{{error}}</h3>
+
+{% endif %}
 
 {% endblock %}

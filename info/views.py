@@ -30,12 +30,41 @@ def index(request):
 
 def detail(requets, title):
     detail_recipe = Dish_Recipe.objects.filter(title=title)
+    sub_recipe = SharedRecipe.objects.filter(title=title)
+    ing = []
+    sub_title = []
+    sub = []
+    image = []
     for i in detail_recipe:
-        detail_subrecipe = SharedRecipe.objects.filter(dish_title=i.id)
-        for r in detail_subrecipe:
-            print(r.recipe)
-    # print(detail_subrecipe)
-    return redirect('info:index')
+        picture_data = Dish.objects.filter(name=i.dish_title)
+        for img in picture_data:
+            image.append(img.image)
+        if i.title == title:
+            ing_lines = i.recipe.split(',')
+            for line in ing_lines:
+                ing.append(line)
+            detail_subrecipe = SharedRecipe.objects.filter(dish_title=i.id)
+            for r in detail_subrecipe:
+                sub.append(r)
+
+    for sub_i in sub_recipe:
+        sub_title.append(sub_i.title)
+        if sub_i.title == title:
+            ing_lines = sub_i.recipe.split(',')
+            for line in ing_lines:
+                ing.append(line)
+            detail_subrecipe = SharedRecipe.objects.filter(dish_title=sub_i.id)
+            for r in detail_subrecipe:
+                sub.append(r)
+    # print(image)
+    return render(requets, 'info/details.html', {
+        'recipe': detail_recipe,
+        'sub_title': sub_title,
+        'ingrediant': ing,
+        'subrecipe': sub,
+        'image': image
+
+    })
 
 
 def dishes(request):
@@ -65,6 +94,14 @@ def input_dish(request):
     if request.method == 'POST':
         form = DishForm(request.POST, request.FILES)
         # form1 = Recipe(request.POST, request.FILES)
+        data = Dish.objects.all()
+        title = request.POST['name']
+        for d in data:
+            if title == d.name:
+                return render(request, 'info/input_dish.html', {
+                    'form': form,
+                    'error': 'There is a dish with that name!!! Please change the name!!!'
+                })
         if form.is_valid:
             data = form.save(commit=False)
             data.save()

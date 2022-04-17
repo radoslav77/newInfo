@@ -1,0 +1,45 @@
+{% extends "info/base.html" %}
+
+{% block body %}
+{% for pic in image %}
+<a href="/media/{{pic}}"><img src="/media/{{pic}}" alt="{{pic}}" width="400" height="300"></a>
+
+{% endfor %}
+<ul>
+    <h2>Title</h2>
+    {% for i in recipe %}
+    <a href="{% url 'info:detail' i %}">
+        <li>{{i}}</li>
+    </a>
+    {% endfor %}
+    {% if sub_title %}
+    {% for t in sub_title %}
+    <a href="{% url 'info:detail' t %}">
+        <h2>{{t}}</h2>
+    </a>
+    {% endfor %}
+    {% endif %}
+</ul>
+<ul>
+    <h2>Recipe</h2>
+    {% for m in ingrediant %}
+
+    <li>{{m}}</li>
+
+    {% endfor %}
+</ul>
+<ul>
+    {% if subrecipe %}
+    <h2>Sub Recipe</h2>
+    {% for d in subrecipe %}
+    <a href="{% url 'info:detail' d.title %}">
+        <li>{{d.title}}</li>
+    </a>
+    {% endfor %}
+    {% endif %}
+</ul>
+
+
+
+
+{% endblock %}
