@@ -29,15 +29,35 @@
         console.log(data)
     }
 
-    const Food_API_URL = ('https://foodapi.calorieking.com/v1')
-    getDataUrl(Food_API_URL)
+    const WightsData = ('/wight_data')
+    GetWightData(WightsData)
 
-    async function getDataUrl(url) {
+    async function GetWightData(url) {
         const res = await fetch(url)
         const data = await res.json()
-
         console.log(data)
     }
+
+    const RecipeData = ('/recipe_data')
+    GetRecipeData(RecipeData)
+
+    async function GetRecipeData(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+        console.log(data)
+    }
+
+
+    /*
+                const Food_API_URL = ('https://foodapi.calorieking.com/v1')
+                getDataUrl(Food_API_URL)
+                                                      
+                async function getDataUrl(url) {
+                const res = await fetch(url)
+                const data = await res.json()
+                                                        
+                console.log(data)
+            }*/
 </script>
 
 {% endblock %}

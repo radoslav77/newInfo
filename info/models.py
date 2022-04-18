@@ -50,7 +50,8 @@ class SharedRecipe(models.Model):
     title = models.CharField(max_length=200)
     dish_title = models.ForeignKey(
         Dish_Recipe, on_delete=models.CASCADE, default=0)
-    type_dish = models.CharField(max_length=200, choices=COURSE)
+    type_dish = models.CharField(
+        max_length=200, choices=COURSE, default='Recipe')
     portions = models.IntegerField(default=1)
     recipe = models.TextField(max_length=4000)
     method = models.TextField(max_length=6000)
@@ -120,9 +121,9 @@ class Dish(models.Model):
     name = models.CharField(max_length=200)
     image = models.ImageField(null=True, blank=True, upload_to='media')
     description = models.TextField(max_length=3000)
-    choose_recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
-    choose_subrecipe = models.ForeignKey(
-        SharedRecipe, on_delete=models.CASCADE, default=0, blank=True)
+    #choose_recipe = models.ForeignKey(Dish_Recipe, on_delete=models.CASCADE)
+    # choose_subrecipe = models.ForeignKey(
+    #    SharedRecipe, on_delete=models.CASCADE, default=0, blank=True)
     qr_code = models.ForeignKey(GenarateCode, verbose_name=GenarateCode,
                                 related_name='qr_code', on_delete=models.CASCADE, default=0, blank=True)
     date = models.DateField(auto_now_add=True, null=True)
@@ -145,3 +146,12 @@ class Calory(models.Model):
 
     def __str__(self):
         return self.item
+
+
+class Wights(models.Model):
+    title = models.CharField(max_length=200)
+    amout = models.IntegerField(default=1)
+    wight = models.FloatField()
+
+    def __str__(self):
+        return self.title

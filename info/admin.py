@@ -57,3 +57,10 @@ class CaloryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Calory, CaloryAdmin)
+
+
+class WightsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'wight')
+
+
+admin.site.register(Wights, WightsAdmin)

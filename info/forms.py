@@ -19,8 +19,11 @@ class SharedRecipeForm(forms.ModelForm):
     class Meta:
         model = SharedRecipe
 
-        fields = ('title', 'dish_title',
-                  'type_dish', 'recipe', 'method')
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(SharedRecipeForm, self).__init__(*args, *kwargs)
+        self.fields['type_dish'].required = False
 
 
 class RecipeForm(forms.ModelForm):
@@ -39,9 +42,12 @@ class DishForm(forms.ModelForm):
         model = Dish
         fields = '__all__'
 
+
+'''
     def __init__(self, *args, **kwargs):
         super(DishForm, self).__init__(*args, *kwargs)
         self.fields['choose_recipe'].required = False
+'''
 
 
 class MenuForm(forms.ModelForm):
@@ -72,4 +78,10 @@ class PairingForm(forms.ModelForm):
 class CaloryForm(forms.ModelForm):
     class Meta:
         model = Calory
+        fields = '__all__'
+
+
+class WightsForm(forms.ModelForm):
+    class Meta:
+        model = Wights
         fields = '__all__'

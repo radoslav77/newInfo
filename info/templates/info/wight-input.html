@@ -1,12 +1,11 @@
 {% extends "info/base.html" %}
 
 {% block body %}
-{{name}}
-
-<form action="{% url 'info:input_dish' %}" method="post" enctype="multipart/form-data">
+<form action="{% url 'info:wight_input' %}" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Submit">
 </form>
+
 
 {% endblock %}

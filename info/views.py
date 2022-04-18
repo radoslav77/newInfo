@@ -93,7 +93,7 @@ def input_dish(request):
 
     if request.method == 'POST':
         form = DishForm(request.POST, request.FILES)
-        # form1 = Recipe(request.POST, request.FILES)
+        form1 = RecipeForm(request.POST, request.FILES)
         data = Dish.objects.all()
         title = request.POST['name']
         for d in data:
@@ -102,26 +102,29 @@ def input_dish(request):
                     'form': form,
                     'error': 'There is a dish with that name!!! Please change the name!!!'
                 })
-        if form.is_valid:
+        if form.is_valid and form1.is_valid:
             data = form.save(commit=False)
             data.save()
-            # data1 = form1.save(commit=False)
-            # data1.save()
+            data1 = form1.save(commit=False)
+            data1.save()
 
-            # checked = request.POST.get('addrecipe', False)
+        checked = request.POST.get('addrecipe', False)
 
-            # if checked == 'on':
-            #    for_dish = request.POST['title_dish']
-            #    form = Recipe()
-            #    return render(request, 'menus/recipe-input.html', {
-            #               'title': for_dish,
-            #                'form': form
-            #            })
+        if checked == 'on':
+            for_dish = request.POST['dish_title']
+            type_dish = request.POST['type_dish']
 
-            return redirect('info:index')
+            return render(request, 'info/input_subrecipe.html', {
+                'title': for_dish,
+                'type_dish': type_dish,
+                'form': SharedRecipeForm()
+            })
+
+        return redirect('info:index')
 
     return render(request, 'info/input_dish.html', {
-        'form': DishForm()
+        'form': DishForm(),
+        'form1': RecipeForm()
     })
 
 
@@ -167,6 +170,18 @@ def calory_input(request):
     })
 
 
+def wight_input(request):
+    if request.method == 'POST':
+        form = WightsForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+            return redirect('info:wight_input')
+    return render(request, 'info/wight-input.html', {
+        'form': WightsForm()
+    })
+
+
 @csrf_protect
 def menu(request):
     if request.method == 'POST':
@@ -194,7 +209,7 @@ def beveridge(request):
 @csrf_protect
 def register(request):
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('info:index')
 
     elif request.method == 'POST':
         form = registrationForm(request.POST or None)
@@ -217,7 +232,7 @@ def register(request):
             # user.groups.add(group)
             # login user
             login(request, user)
-            return redirect('index')
+            return redirect('info:index')
     else:
         form = registrationForm()
     return render(request, 'info/register.html', {'form': form})
@@ -248,7 +263,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('index')
+                    return redirect('info:index')
                 else:
                     return render(request, 'info/login.html', {'error': "Your account has been desaibled."})
 
@@ -273,7 +288,7 @@ def change_password(request, user):
         else:
             u.set_password(new_password)
             u.save()
-            return redirect('login_user')
+            return redirect('info:login_user')
     return render(request, 'info/change-password.html')
 
 
@@ -281,9 +296,9 @@ def logout_user(request):
     if request.user.is_authenticated:
 
         logout(request)
-        return redirect('login_user')
+        return redirect('info:login_user')
     else:
-        return redirect('login_user')
+        return redirect('info:login_user')
 
 
 # API views
@@ -299,3 +314,54 @@ def calory_data(request):
         })
     # print(recipe_data)
     return HttpResponse(json.dumps(calory_data), content_type="application/json")
+
+
+def wight_data(request):
+    data = Wights.objects.all()
+    wight_data = []
+    for i in data:
+        wight_data.append({
+            'title': i.title,
+            'amout': i.amout,
+            'wight in g': str(i.wight) + ' ' + 'g',
+
+        })
+    # print(recipe_data)
+    return HttpResponse(json.dumps(wight_data), content_type="application/json")
+
+
+def recipe_data(request):
+    recipe = Dish_Recipe.objects.all()
+    subrecipe = SharedRecipe.objects.all()
+    res = []
+    sub_res = []
+
+    for i in recipe:
+        res.append({
+            'title': i.title,
+            'for Dish': i.dish_title,
+            'outlet': i.outlet,
+            'type': i.type_dish,
+            'portions': i.portions,
+            'recipe': i.recipe,
+            'method': i.method,
+            # 'date': i.date,
+            'archived': i.archived,
+            'shared': i.shared,
+        })
+    for j in subrecipe:
+
+        sub_res.append({
+            'title': j.title,
+            'for Dish': j.dish_title.title,
+            # 'outlet': i.outlet,
+            'type': j.type_dish,
+            'portions': j.portions,
+            'recipe': j.recipe,
+            'method': j.method,
+            # 'date': j.date,
+            'archived': j.archived,
+
+        })
+    result = [*res, *sub_res]
+    return HttpResponse(json.dumps(result), content_type="application/json")
