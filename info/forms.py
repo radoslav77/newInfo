@@ -85,3 +85,9 @@ class WightsForm(forms.ModelForm):
     class Meta:
         model = Wights
         fields = '__all__'
+
+
+class AllergentForm(forms.ModelForm):
+    class Meta:
+        model = Allergents
+        fields = '__all__'

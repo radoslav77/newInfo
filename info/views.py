@@ -157,6 +157,18 @@ def recipe_input(request):
     })
 
 
+def allergent(request):
+    if request.method == 'POST':
+        form = AllergentForm(request.POST, request.FILES)
+        if form.is_valid:
+            data = form.save(commit=False)
+            data.save()
+            return redirect('info:allergent')
+    return render(request, 'info/allergent-input.html', {
+        'form': AllergentForm()
+    })
+
+
 def calory_input(request):
     if request.method == 'POST':
         form = CaloryForm(request.POST, request.FILES)

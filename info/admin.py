@@ -64,3 +64,10 @@ class WightsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Wights, WightsAdmin)
+
+
+class AllergentsAdmin(admin. ModelAdmin):
+    list_display = ('id', 'title', 'allergent')
+
+
+admin.site.register(Allergents, AllergentsAdmin)

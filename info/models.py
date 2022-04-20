@@ -155,3 +155,30 @@ class Wights(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Allergents(models.Model):
+    Allergent = [
+        ('Celery', 'Celery'),
+        ('Gluten', 'Gluten'),
+        ('Crustaceans', 'Crustaceans'),
+        ('Eggs', 'Eggs'),
+        ('Fish', 'Fish'),
+        ('Lupin', 'Lupin'),
+        ('Milk', 'Milk'),
+        ('Molluscs', 'Molluscs'),
+        ('Mustard', 'Mustard'),
+        ('Nuts', 'Nuts'),
+        ('Peanuts', 'Peanuts'),
+        ('Sesame seeds', 'Sesame seeds'),
+        ('Soya', 'Soya'),
+        ('Sulphur dioxide', 'Sulphur dioxide')
+    ]
+
+    title = models.CharField(max_length=200)
+    allergent = models.CharField(max_length=200, choices=Allergent)
+    description = models.CharField(max_length=1000)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self) -> str:
+        return self.title

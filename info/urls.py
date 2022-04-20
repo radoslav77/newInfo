@@ -20,6 +20,7 @@ urlpatterns = [
     path('calory-input', views.calory_input, name='calory_input'),
     path('wight-input', views.wight_input, name='wight_input'),
     path('dishes', views.dishes, name='dishes'),
+    path('allergent-input', views.allergent, name='allergent'),
     path('detail/<str:title>', views.detail, name='detail'),
 
 
