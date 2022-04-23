@@ -377,3 +377,17 @@ def recipe_data(request):
         })
     result = [*res, *sub_res]
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def allergen_data(request):
+    data = Allergents.objects.all()
+    allergen_data = []
+
+    for i in data:
+        allergen_data.append({
+            'title': i.title,
+            'type': i.allergent,
+            'description': i.description,
+            # 'data': i.date
+        })
+    return HttpResponse(json.dumps(allergen_data), content_type="application/json")

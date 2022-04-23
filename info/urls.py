@@ -28,6 +28,7 @@ urlpatterns = [
     path('calory_data', views.calory_data, name='calory_data'),
     path('wight_data', views.wight_data, name='wight_data'),
     path('recipe_data', views.recipe_data, name='recipe_data'),
+    path('allergent-data', views.allergen_data, name='allergen_data'),
     # path('subrecipe_data', views.subrecipe_data, name='subrecipe_data')
 
 ]

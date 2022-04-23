@@ -48,6 +48,16 @@
     }
 
 
+    const AllergenData = ('/allergent-data')
+    GetAllergenData(AllergenData)
+
+    async function GetAllergenData(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+        console.log(data)
+    }
+
+
     /*
                 const Food_API_URL = ('https://foodapi.calorieking.com/v1')
                 getDataUrl(Food_API_URL)
