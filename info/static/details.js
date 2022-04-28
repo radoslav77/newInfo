@@ -1,2 +1,2 @@
-const MainContainer = document.querySelector('.page')
+const MainContainer = document.getElementById('page')
 console.log(MainContainer)

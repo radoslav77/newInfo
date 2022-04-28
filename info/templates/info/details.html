@@ -1,55 +1,108 @@
 {% extends "info/base.html" %}
+{% load static %}
+
 
 {% block style %}
 <style>
     .page {
-        width: 80vw;
+        width: auto;
         height: 80vh;
+        margin-left: 30%;
+    }
+
+    .title {
+        padding: 20px;
+        width: 45%;
+        height: auto;
+        border: solid 1px #000;
+
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .recipe {
+        margin-top: 10px;
+        padding: 20px;
+        width: 45%;
+        height: auto;
+        border: solid 1px #000;
+    }
+
+    .subrecipe {
+        margin-top: 10px;
+        padding: 20px;
+        width: 45%;
+        height: auto;
+        border: solid 1px #000;
     }
 </style>
 
 {% endblock %}
 {% block body %}
-<div class="page">
+<div class="page" id="page">
     {% for pic in image %}
     <a href="/media/{{pic}}"><img src="/media/{{pic}}" alt="{{pic}}" width="400" height="300"></a>
 
     {% endfor %}
-    <ul>
-        <h2>Title</h2>
-        {% for i in recipe %}
-        <a href="{% url 'info:detail' i %}">
-            <li>{{i}}</li>
-        </a>
-        {% endfor %}
-        {% if sub_title %}
-        {% for t in sub_title %}
-        <a href="{% url 'info:detail' t %}">
-            <h2>{{t}}</h2>
-        </a>
-        {% endfor %}
-        {% endif %}
-    </ul>
-    <ul>
-        <h2>Recipe</h2>
-        {% for m in ingrediant %}
+    <h2>Title</h2>
+    <div class="title">
+        <ul>
 
-        <li>{{m}}</li>
 
-        {% endfor %}
-    </ul>
-    <ul>
-        {% if subrecipe %}
-        <h2>Sub Recipe</h2>
-        {% for d in subrecipe %}
-        <a href="{% url 'info:detail' d.title %}">
-            <li>{{d.title}}</li>
-        </a>
-        {% endfor %}
-        {% endif %}
-    </ul>
+            {% for i in recipe %}
+            <a href="{% url 'info:detail' i %}">
+                <li>{{i}}</li>
+            </a>
+            {% endfor %}
+            {% if sub_title %}
+            {% for t in sub_title %}
+            <a href="{% url 'info:detail' t %}">
+                <h2>{{t}}</h2>
+            </a>
+            {% endfor %}
+            {% endif %}
+
+        </ul>
+    </div>
+    <h2>Recipe</h2>
+    <div class="recipe">
+        <ul>
+
+            {% for m in ingrediant %}
+
+            <li id="line">{{m}}</li>
+
+            {% endfor %}
+        </ul>
+    </div>
+    <h2>Sub Recipe</h2>
+    <div class="subrecipe">
+        <ul>
+            {% if subrecipe %}
+
+            {% for d in subrecipe %}
+            <a href="{% url 'info:detail' d.title %}">
+                <li>{{d.title}}</li>
+            </a>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
 
 </div>
-<script src="static/details.js"></script>
+
+<script src="{static 'details.js'}"></script>
+
+<script>
+    const MainContainer = document.querySelector('.page')
+    const RecipeContainer = document.querySelector('.recipe')
+    const LinesRecipe = RecipeContainer.childNodes
+    const LineContainer = document.getElementById('line')
+
+    const i = RecipeContainer.innerText.split('\n')
+    console.log(i)
+</script>
 
 {% endblock %}
