@@ -102,7 +102,60 @@
     const LineContainer = document.getElementById('line')
 
     const i = RecipeContainer.innerText.split('\n')
-    console.log(i)
+    // console.log(i)
+    let ingredients = []
+
+    i.forEach(item => {
+        let itemName = item.split(/\s+/)
+        // console.log(itemName)
+        itemName.forEach(element => {
+            if (isNaN(element)) {
+                //console.log(element)
+                ingredients.push(element)
+            }
+
+        })
+
+        const Calories_data = ('/calory_data')
+        GetCaloryData(Calories_data)
+
+        async function GetCaloryData(url) {
+            const res = await fetch(url)
+            const data = await res.json()
+
+            data.forEach(entry => {
+                //console.log(entry.title)
+                //loop through the ingredients list
+                ingredients.forEach(ing => {
+
+                    if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
+
+                        console.log(itemName[0])
+                    }
+                })
+                const found = ingredients.find(element => element.toLowerCase() === entry.title.toLowerCase())
+                console.log(found)
+                if (entry.title == itemName) {
+                    console.log(itemName)
+                }
+            });
+            //console.log(data)
+        }
+
+
+    })
+
+    const AllergenData = ('/allergent-data')
+    GetAllergenData(AllergenData)
+
+    async function GetAllergenData(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+        console.log(data)
+    }
+
+
+
 </script>
 
 {% endblock %}
