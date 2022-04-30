@@ -317,12 +317,16 @@ def logout_user(request):
 def calory_data(request):
     data = Calory.objects.all()
     calory_data = []
+
     for i in data:
+        # calory per 1 gram
+        amn = i.calory / 100
+
         calory_data.append({
             'title': i.item,
             'unit': i.unit,
             'amount': i.amout,
-            'Kcal': i.calory,
+            'Kcal': amn,
         })
     # print(recipe_data)
     return HttpResponse(json.dumps(calory_data), content_type="application/json")

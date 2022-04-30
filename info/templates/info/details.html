@@ -125,16 +125,16 @@
 
             data.forEach(entry => {
                 //console.log(entry.title)
-                //loop through the ingredients list
+
                 ingredients.forEach(ing => {
 
                     if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
-
+                        //Get the amount for the itam and calculate the calory 
                         console.log(itemName[0])
                     }
                 })
-                const found = ingredients.find(element => element.toLowerCase() === entry.title.toLowerCase())
-                console.log(found)
+                //const found = ingredients.find(element => element.toLowerCase() === i.toLowerCase() || element.toLowerCase() + 's' === i.toLowerCase())
+                //console.log(found)
                 if (entry.title == itemName) {
                     console.log(itemName)
                 }
