@@ -102,7 +102,7 @@
     const LineContainer = document.getElementById('line')
 
     const i = RecipeContainer.innerText.split('\n')
-    // console.log(i)
+    //console.log(i)
     let ingredients = []
 
     i.forEach(item => {
@@ -130,14 +130,18 @@
 
                     if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
                         //Get the amount for the itam and calculate the calory 
-                        console.log(itemName[0])
+                        console.log(entry.title)
+                        i.forEach(x => {
+                            if (x.includes(ing)) {
+                                let NumberEntry = x.split(/\s+/)
+                                let calc = NumberEntry[0] * entry.Kcal
+                                console.log(calc)
+                            }
+                        })
                     }
                 })
-                //const found = ingredients.find(element => element.toLowerCase() === i.toLowerCase() || element.toLowerCase() + 's' === i.toLowerCase())
-                //console.log(found)
-                if (entry.title == itemName) {
-                    console.log(itemName)
-                }
+
+
             });
             //console.log(data)
         }
