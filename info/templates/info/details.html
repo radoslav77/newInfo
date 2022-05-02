@@ -67,6 +67,9 @@
         </ul>
     </div>
     <h2>Recipe</h2>
+    {% for portion in portions %}
+    <h4 id="portions">Portions per recipe: {{portion}}</h4>
+    {% endfor %}
     <div class="recipe">
         <ul>
 
@@ -96,6 +99,7 @@
 <script src="{static 'details.js'}"></script>
 
 <script>
+    const PortionsRecipe = document.getElementById('portions')
     const MainContainer = document.querySelector('.page')
     const RecipeContainer = document.querySelector('.recipe')
     const LinesRecipe = RecipeContainer.childNodes
@@ -104,6 +108,9 @@
     const i = RecipeContainer.innerText.split('\n')
     //console.log(i)
     let ingredients = []
+
+    let ArrSum = []
+    const TotalCalory = new Set()
 
     i.forEach(item => {
         let itemName = item.split(/\s+/)
@@ -130,12 +137,13 @@
 
                     if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
                         //Get the amount for the itam and calculate the calory 
-                        console.log(entry.title)
+                        // console.log(entry.title)
                         i.forEach(x => {
                             if (x.includes(ing)) {
                                 let NumberEntry = x.split(/\s+/)
                                 let calc = NumberEntry[0] * entry.Kcal
-                                console.log(calc)
+                                TotalCalory.add(calc)
+                                //console.log(calc)
                             }
                         })
                     }
@@ -144,11 +152,29 @@
 
             });
             //console.log(data)
+
+
         }
+        let TotalSum
+        TotalCalory.forEach(entry => {
+            TotalSum += entry
+            console.log(TotalSum)
+        })
+
+
+        /*
+        let Sum = TotalCalory.reduce(getSum, 0)
+        function getSum(total, num) {
+            return total + num
+            ArrSum.push(Sum)
+        }*/
 
 
     })
 
+
+    console.log(TotalCalory)
+    //console.log(ArrSum)
     const AllergenData = ('/allergent-data')
     GetAllergenData(AllergenData)
 

@@ -35,8 +35,12 @@ def detail(requets, title):
     sub_title = []
     sub = []
     image = []
+    portion_recipe = []
+    portion_subrecipe = []
+
     for i in detail_recipe:
         picture_data = Dish.objects.filter(name=i.dish_title)
+        portion_recipe.append(i.portions)
         for img in picture_data:
             image.append(img.image)
         if i.title == title:
@@ -49,6 +53,7 @@ def detail(requets, title):
 
     for sub_i in sub_recipe:
         sub_title.append(sub_i.title)
+        portion_subrecipe.append(sub_i.portions)
         if sub_i.title == title:
             ing_lines = sub_i.recipe.split(',')
             for line in ing_lines:
@@ -62,7 +67,9 @@ def detail(requets, title):
         'sub_title': sub_title,
         'ingrediant': ing,
         'subrecipe': sub,
-        'image': image
+        'image': image,
+        'portions': portion_recipe,
+        'portions_sub': portion_subrecipe
 
     })
 
