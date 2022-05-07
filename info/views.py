@@ -50,6 +50,7 @@ def detail(requets, title):
             detail_subrecipe = SharedRecipe.objects.filter(dish_title=i.id)
             for r in detail_subrecipe:
                 sub.append(r)
+           # print(i.recipe)
 
     for sub_i in sub_recipe:
         sub_title.append(sub_i.title)

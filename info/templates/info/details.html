@@ -96,7 +96,7 @@
 
 </div>
 
-<script src="{static 'details.js'}"></script>
+<!--<script src="{static 'details.js'}"></script>-->
 
 <script>
     const PortionsRecipe = document.getElementById('portions')
@@ -108,9 +108,17 @@
     const i = RecipeContainer.innerText.split('\n')
     //console.log(i)
     let ingredients = []
-    let sum = 0
+    let ingred = []
     let ArrSum = []
-    const TotalCalory = new Set()
+    const TotalCalory = []
+
+    var Sum = new Set([])
+    var NewArr = Array.from(Sum)
+
+
+    let TotalX = TotalCalory.reduce((sum, num) => sum + num, 0)
+    console.log(TotalX)
+
 
     i.forEach(item => {
         let itemName = item.split(/\s+/)
@@ -121,6 +129,12 @@
                 ingredients.push(element)
             }
 
+        })
+        //remove duplicates from arr
+        ingredients.forEach(e => {
+            if (!ingred.includes(e)) {
+                ingred.push(e)
+            }
         })
 
         const Calories_data = ('/calory_data')
@@ -133,7 +147,7 @@
             data.forEach(entry => {
                 //console.log(entry.title)
 
-                ingredients.forEach(ing => {
+                ingred.forEach(ing => {
 
                     if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
                         //Get the amount for the itam and calculate the calory 
@@ -142,46 +156,42 @@
                             if (x.includes(ing)) {
                                 let NumberEntry = x.split(/\s+/)
                                 let calc = NumberEntry[0] * entry.Kcal
-                                TotalCalory.add(calc)
-                                //console.log(calc)
+                                TotalCalory.push(calc)
+
                             }
-                            // console.log(calc)
-
-
                         })
+                        //console.log(ingredients)
+
                     }
                 })
 
 
+
             });
-            //console.log(data)
-            //this function need more work on 
-            TotalCalory.forEach(num => {
-                sum += num
-                console.log(sum)
-                for (let i = 0; i < TotalCalory.lenght; i++) {
-                    if (i === TotalCalory.lenght) {
-                        break
-                    }
-                }
-            })
+
+
         }
 
 
 
 
-        /*
-        let Sum = TotalCalory.reduce(getSum, 0)
-        function getSum(total, num) {
-            return total + num
-            ArrSum.push(Sum)
-        }*/
 
+
+        //console.log(ingred)
+        /* function getSum(total, num) {
+             return total + num
+ 
+         }*/
+        //console.log(Sum)
 
     })
 
+    for (let i = 0; i < Sum.size; i++) {
+        console.log(i)
+    }
 
-    console.log(TotalCalory)
+
+
     //console.log(ArrSum)
     const AllergenData = ('/allergent-data')
     GetAllergenData(AllergenData)
@@ -189,7 +199,7 @@
     async function GetAllergenData(url) {
         const res = await fetch(url)
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
     }
 
 
