@@ -110,85 +110,94 @@
     let ingredients = []
     let ingred = []
     let ArrSum = []
-    const TotalCalory = []
+    const TotalCalory = new Set([])
 
     var Sum = new Set([])
-    var NewArr = Array.from(Sum)
+    var NewArr = Array.from(TotalCalory)
 
 
-    let TotalX = TotalCalory.reduce((sum, num) => sum + num, 0)
-    console.log(TotalX)
+    //let TotalX = TotalCalory.reduce((sum, num) => sum + num, 0)
 
 
-    i.forEach(item => {
-        let itemName = item.split(/\s+/)
-        // console.log(itemName)
-        itemName.forEach(element => {
-            if (isNaN(element)) {
-                //console.log(element)
-                ingredients.push(element)
-            }
+
+
+    const Calories_data = ('/calory_data')
+    GetCaloryData(Calories_data)
+    async function GetCaloryData(url) {
+        const res = await fetch(url)
+        const data = await res.json()
+
+
+        i.forEach(item => {
+            let itemName = item.split(/\s+/)
+            // console.log(itemName)
+            itemName.forEach(element => {
+                if (isNaN(element)) {
+                    //console.log(element)
+                    ingredients.push(element)
+                }
+
+            })
+            //remove duplicates from arr
+            ingredients.forEach(e => {
+                if (!ingred.includes(e)) {
+                    ingred.push(e)
+                }
+            })
+
 
         })
-        //remove duplicates from arr
-        ingredients.forEach(e => {
-            if (!ingred.includes(e)) {
-                ingred.push(e)
-            }
-        })
-
-        const Calories_data = ('/calory_data')
-        GetCaloryData(Calories_data)
-
-        async function GetCaloryData(url) {
-            const res = await fetch(url)
-            const data = await res.json()
-
-            data.forEach(entry => {
-                //console.log(entry.title)
-
-                ingred.forEach(ing => {
-
-                    if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
-                        //Get the amount for the itam and calculate the calory 
-                        // console.log(entry.title)
-                        i.forEach(x => {
-                            if (x.includes(ing)) {
-                                let NumberEntry = x.split(/\s+/)
-                                let calc = NumberEntry[0] * entry.Kcal
-                                TotalCalory.push(calc)
-
-                            }
-                        })
-                        //console.log(ingredients)
-
-                    }
-                })
-
-
-
-            });
-
-
-        }
 
 
 
 
+        data.forEach(entry => {
+            //console.log(entry.title)
+
+            ingred.forEach(ing => {
+
+                if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
+                    //Get the amount for the itam and calculate the calory 
+                    // console.log(entry.title)
+                    i.forEach(x => {
+                        if (x.includes(ing)) {
+                            let NumberEntry = x.split(/\s+/)
+                            let calc = NumberEntry[0] * entry.Kcal
+                            TotalCalory.add(calc)
+
+                        }
+                    })
+                    TotalCalory.forEach((num, ind) => {
+                        let sum = ''
+                        for (let i = 0; i < TotalCalory.size; i++) {
+                            sum = sum + num
+                            console.log(i)
+                        }
+
+                    })
+                    //console.log(ingredients)
+
+                }
+            })
 
 
-        //console.log(ingred)
-        /* function getSum(total, num) {
-             return total + num
- 
-         }*/
-        //console.log(Sum)
 
-    })
+        });
 
-    for (let i = 0; i < Sum.size; i++) {
-        console.log(i)
+
     }
+
+
+
+
+
+
+    console.log(TotalCalory)
+    /* function getSum(total, num) {
+         return total + num
+ 
+     }*/
+    //console.log(Sum)
 
 
 
