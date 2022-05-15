@@ -69,6 +69,7 @@
     <h2>Recipe</h2>
     {% for portion in portions %}
     <h4 id="portions">Portions per recipe: {{portion}}</h4>
+    <h5 id="calory"></h5>
     {% endfor %}
     <div class="recipe">
         <ul>
@@ -93,17 +94,22 @@
             {% endif %}
         </ul>
     </div>
+    <div class="subrecipe" id="allergent">
+
+    </div>
 
 </div>
 
 <!--<script src="{static 'details.js'}"></script>-->
 
 <script>
-    const PortionsRecipe = document.getElementById('portions')
+    const PortionsRecipe = document.getElementById('portions').innerText
     const MainContainer = document.querySelector('.page')
     const RecipeContainer = document.querySelector('.recipe')
     const LinesRecipe = RecipeContainer.childNodes
     const LineContainer = document.getElementById('line')
+    const AllergenContainer = document.getElementById('allergent')
+    const CaloriElement = document.getElementById('calory')
 
     const i = RecipeContainer.innerText.split('\n')
     //console.log(i)
@@ -120,7 +126,7 @@
 
 
 
-
+    // Calory information function 
     const Calories_data = ('/calory_data')
     GetCaloryData(Calories_data)
     async function GetCaloryData(url) {
@@ -130,10 +136,10 @@
 
         i.forEach(item => {
             let itemName = item.split(/\s+/)
-            // console.log(itemName)
+
             itemName.forEach(element => {
                 if (isNaN(element)) {
-                    //console.log(element)
+
                     ingredients.push(element)
                 }
 
@@ -148,17 +154,14 @@
 
         })
 
-
-
-
         data.forEach(entry => {
-            //console.log(entry.title)
+
 
             ingred.forEach(ing => {
 
                 if (entry.title.toLowerCase() === ing.toLowerCase() || entry.title.toLowerCase() + 's' === ing.toLowerCase()) {
                     //Get the amount for the itam and calculate the calory 
-                    // console.log(entry.title)
+
                     i.forEach(x => {
                         if (x.includes(ing)) {
                             let NumberEntry = x.split(/\s+/)
@@ -171,41 +174,69 @@
                     let TotalX = TotalCalory.reduce((sum, num) => sum + num, 0)
                     TotalKcal.push(TotalX)
 
-                    //console.log(ingredients)
+
 
                 }
             })
 
-
-
         });
+        let cal = TotalKcal[TotalKcal.length - 1]
+        let PortionsNuber = PortionsRecipe.split(/\s+/)
+        PortionsNuber.forEach(num => {
+            if (!isNaN(num)) {
+                let PerPortion = cal / num
+
+                //console.log(PerPortion)
+                CaloriElement.innerText = `${PerPortion} kcal per One portion`
+            }
+        })
 
 
-    } console.log(TotalKcal)
+    }
 
 
-
-
-
-
-    //console.log(TotalCalory)
-    /* function getSum(total, num) {
-         return total + num
- 
-     }*/
-    //console.log(Sum)
-
-
-
-    //console.log(ArrSum)
+    // Allergen information function 
     const AllergenData = ('/allergent-data')
     GetAllergenData(AllergenData)
-
+    var IngrAllergy = []
+    var DaiteryContent = new Set()
     async function GetAllergenData(url) {
         const res = await fetch(url)
         const data = await res.json()
-        //console.log(data)
-        console.log(RecipeContainer)
+
+
+        i.forEach(item => {
+            let itemName = item.split(/\s+/)
+            itemName.forEach(name => {
+                if (isNaN(name) && name != 'g') {
+                    IngrAllergy.push(name)
+                }
+            })
+
+            data.forEach(entry => {
+
+                let EntryTitle = entry.title.split(/\s+/)
+                EntryTitle.forEach(title => {
+                    if (IngrAllergy.includes(title)) {
+                        DaiteryContent.add(entry.type)
+
+                    }
+                })
+
+
+
+            })
+
+
+        })
+        //create input on the page with the allergens
+        DaiteryContent.forEach(ent => {
+            const Pallergent = document.createElement('p')
+            Pallergent.innerText = ent + ','
+            Pallergent.style.color = 'red'
+            AllergenContainer.appendChild(Pallergent)
+        })
+        console.log(DaiteryContent)
     }
 
 
