@@ -97,12 +97,19 @@
     <div class="subrecipe" id="allergent">
 
     </div>
+    <form action="{% url 'Qrcode:code' %}" enctype="multipart/form-data" method="post">
+        {{qrform}}
+        <input type="text" id="url" hidden name="url">
+        <input type="button" value="Creat QRcode">
+    </form>
+
 
 </div>
 
 <!--<script src="{static 'details.js'}"></script>-->
 
 <script>
+    const UrlAddressConst = document.getElementById('url')
     const PortionsRecipe = document.getElementById('portions').innerText
     const MainContainer = document.querySelector('.page')
     const RecipeContainer = document.querySelector('.recipe')
@@ -188,6 +195,7 @@
 
                 //console.log(PerPortion)
                 CaloriElement.innerText = `${PerPortion} kcal per One portion`
+                CaloriElement.style.textDecoration = 'underline'
             }
         })
 
@@ -238,8 +246,9 @@
         })
         console.log(DaiteryContent)
     }
-
-
+    const UrlAddress = window.location.href
+    UrlAddressConst.innerText = UrlAddress
+    console.log(UrlAddressConst)
 
 </script>
 

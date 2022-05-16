@@ -1,3 +1,4 @@
+import imp
 from django.shortcuts import render
 
 # Create your views here.
@@ -6,11 +7,16 @@ import qrcode
 import qrcode.image.svg
 
 from io import BytesIO
+from .forms import *
 
 
 def code(request):
+    print(123)
+    form1 = GenarateCode()
     context = {}
     if request.method == "POST":
+        url = request.POST['name']
+        print(url)
         #factory = SvgImage
         factory = qrcode.image.svg.SvgPathImage
         img = qrcode.make(request.POST.get("qr_text", ""),
@@ -19,4 +25,5 @@ def code(request):
         img.save(stream)
         context["svg"] = stream.getvalue().decode()
 
+    print(form1)
     return render(request, "Qrcode/code.html", {'context': context})

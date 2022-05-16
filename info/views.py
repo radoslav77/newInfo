@@ -15,6 +15,7 @@ import json
 
 from .models import *
 from .forms import *
+from Qrcode.forms import *
 # Create your views here.
 
 
@@ -70,7 +71,8 @@ def detail(requets, title):
         'subrecipe': sub,
         'image': image,
         'portions': portion_recipe,
-        'portions_sub': portion_subrecipe
+        'portions_sub': portion_subrecipe,
+        'qrform': GenarateCode()
 
     })
 
