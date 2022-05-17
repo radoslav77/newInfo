@@ -7,16 +7,16 @@ import qrcode
 import qrcode.image.svg
 
 from io import BytesIO
-from .forms import *
+from .forms import QrCodeForm
 
 
 def code(request):
-    print(123)
-    form1 = GenarateCode()
+    # print(123)
+    form1 = QrCodeForm()
     context = {}
     if request.method == "POST":
-        url = request.POST['name']
-        print(url)
+        #url = request.POST['name']
+        # print(url)
         #factory = SvgImage
         factory = qrcode.image.svg.SvgPathImage
         img = qrcode.make(request.POST.get("qr_text", ""),
@@ -26,4 +26,8 @@ def code(request):
         context["svg"] = stream.getvalue().decode()
 
     print(form1)
-    return render(request, "Qrcode/code.html", {'context': context})
+    return render(request, "Qrcode/code.html", {
+        'context': context,
+        'form': form1
+
+    })
