@@ -16,6 +16,7 @@ import json
 from .models import *
 from .forms import *
 from Qrcode.forms import *
+from Qrcode.views import *
 # Create your views here.
 
 
@@ -32,16 +33,20 @@ def index(request):
 def detail(requets, title):
     detail_recipe = Dish_Recipe.objects.filter(title=title)
     sub_recipe = SharedRecipe.objects.filter(title=title)
+    url_path = requets.path
+
     ing = []
     sub_title = []
     sub = []
     image = []
     portion_recipe = []
     portion_subrecipe = []
+    outlet = []
 
     for i in detail_recipe:
         picture_data = Dish.objects.filter(name=i.dish_title)
         portion_recipe.append(i.portions)
+        outlet.append(i.outlet)
         for img in picture_data:
             image.append(img.image)
         if i.title == title:
@@ -63,6 +68,7 @@ def detail(requets, title):
             detail_subrecipe = SharedRecipe.objects.filter(dish_title=sub_i.id)
             for r in detail_subrecipe:
                 sub.append(r)
+    code(requets, url_path, title, outlet)
     # print(image)
     return render(requets, 'info/details.html', {
         'recipe': detail_recipe,
@@ -72,7 +78,7 @@ def detail(requets, title):
         'image': image,
         'portions': portion_recipe,
         'portions_sub': portion_subrecipe,
-        'qrform': GenarateCode()
+        'qrform': QrCodeForm()
 
     })
 

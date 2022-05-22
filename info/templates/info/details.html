@@ -53,7 +53,7 @@
 
             {% for i in recipe %}
             <a href="{% url 'info:detail' i %}">
-                <li>{{i}}</li>
+                <li id="title">{{i}}</li>
             </a>
             {% endfor %}
             {% if sub_title %}
@@ -98,9 +98,9 @@
 
     </div>
     <form action="{% url 'Qrcode:code' %}" enctype="multipart/form-data" method="post">
-        {{qrform}}
-        <input type="text" id="url" hidden name="url">
-        <input type="button" value="Creat QRcode">
+        {{qrform.as_p}}
+        <input type="text" id="url" hidden name="url"><input type="button" value="Creat QRcode">
+        <a href="{% url 'Qrcode:code' %}"></a>
     </form>
 
 
@@ -109,6 +109,8 @@
 <!--<script src="{static 'details.js'}"></script>-->
 
 <script>
+    const QrCodeFormTitle = document.getElementById('id_title')
+    const TitleRecipe = document.getElementById('title')
     const UrlAddressConst = document.getElementById('url')
     const PortionsRecipe = document.getElementById('portions').innerText
     const MainContainer = document.querySelector('.page')
@@ -117,6 +119,9 @@
     const LineContainer = document.getElementById('line')
     const AllergenContainer = document.getElementById('allergent')
     const CaloriElement = document.getElementById('calory')
+
+    QrCodeFormTitle.innerText = TitleRecipe
+    console.log(QrCodeFormTitle)
 
     const i = RecipeContainer.innerText.split('\n')
     //console.log(i)
