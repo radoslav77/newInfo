@@ -4,3 +4,5 @@ from .models import *
 
 
 admin.site.register(GenarateCode)
+
+admin.site.register(QRcodesForDishes)

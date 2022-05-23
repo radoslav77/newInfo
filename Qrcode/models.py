@@ -19,3 +19,13 @@ class GenarateCode(models.Model):
     outlet = models.CharField(max_length=200, choices=OUTLET)
     img = models.ImageField(upload_to='media')
     date = models.DateField(auto_now_add=True, null=True)
+
+
+class QRcodesForDishes(models.Model):
+    title = models.CharField(max_length=200)
+    outlet = models.CharField(max_length=200, default='q')
+    img = models.ImageField(upload_to='media')
+    date = models.DateField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.title

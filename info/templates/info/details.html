@@ -97,15 +97,16 @@
     <div class="subrecipe" id="allergent">
 
     </div>
-    <form action="{% url 'Qrcode:code' %}" enctype="multipart/form-data" method="post">
-        {{qrform.as_p}}
-        <input type="text" id="url" hidden name="url"><input type="button" value="Creat QRcode">
-        <a href="{% url 'Qrcode:code' %}"></a>
+    <form action="" method="post">
+        <input type="text">
+        <input type="button" value="Create">
     </form>
-
-
 </div>
-
+<div style="margin: auto">
+    {% for s in svg %}
+    {{ s|safe }}
+    {% endfor %}
+</div>
 <!--<script src="{static 'details.js'}"></script>-->
 
 <script>

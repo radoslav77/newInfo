@@ -1,6 +1,7 @@
 import imp
+from multiprocessing import context
 from turtle import title
-from django.shortcuts import render
+
 
 # Create your views here.
 from django.shortcuts import render
@@ -9,48 +10,60 @@ import qrcode.image.svg
 
 from io import BytesIO
 
-from Qrcode.models import GenarateCode
+from Qrcode.models import GenarateCode, QRcodesForDishes
 from .forms import QrCodeForm
 
 
-def code1(request, url):
-    print(123, url)
-    form1 = QrCodeForm()
+def index1(request):
+
     context = {}
     if request.method == "POST":
-        #url = request.POST['name']
-        # print(url)
-        #factory = SvgImage
-        factory = qrcode.image.svg.SvgPathImage
+        factory = qrcode.image.svg.SvgImage
         img = qrcode.make(request.POST.get("qr_text", ""),
-                          image_factory=factory, box_size=20)  # qrcode.image.pil.PilImage files for createing qrcode
+                          image_factory=factory, box_size=20)
         stream = BytesIO()
         img.save(stream)
         context["svg"] = stream.getvalue().decode()
 
-    # print(form1)
-    return render(request, "Qrcode/code.html", {
-        'context': context,
-        'form': form1
-
-    })
+    return render(request, "Qrcode/index1.html", context=context)
 
 
 def code(request, url, title, outlet):
-    qr = qrcode.QRCode(
-        version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-    qr.add_data(url)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color='black', back_color='white')
+    #print(url, outlet)
+    context = {}
+    factory = qrcode.image.svg.SvgImage
+    img = qrcode.make(request.POST.get(url, ""),
+                      image_factory=factory, box_size=20)
     stream = BytesIO()
-
     img.save(stream)
-    out = []
-    for i in outlet:
+    context["svg"] = stream.getvalue().decode()
+    data = QRcodesForDishes(title=title, img=context)
+    data.save()
+    print(img)
 
-        data = GenarateCode(title=title, outlet=i, img=img)
-        data.save()
-        print(data)
-    '''return render(request, "Qrcode/code.html", {
-        'img': img
-    })'''
+
+def code1(request, url, title):
+
+   # Create qr code instance
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+
+    # The data that you want to store
+    data = url
+
+    # Add data
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    # Create an image from the QR Code instance
+    img = qr.make_image()
+    print(img)
+    # Save it somewhere, change the extension as needed:
+    # img.save("image.png")
+    # img.save("image.bmp")
+    # img.save("image.jpeg")
+    img.save("image.jpg")
