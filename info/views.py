@@ -71,7 +71,7 @@ def detail(requets, title):
             detail_subrecipe = SharedRecipe.objects.filter(dish_title=sub_i.id)
             for r in detail_subrecipe:
                 sub.append(r)
-
+    code1(requets, url_path, title)
     svg = []
     for data in qr_code:
         svg.append(data.img)

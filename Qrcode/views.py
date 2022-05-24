@@ -66,4 +66,4 @@ def code1(request, url, title):
     # img.save("image.png")
     # img.save("image.bmp")
     # img.save("image.jpeg")
-    img.save("image.jpg")
+    img.save(title + ".jpg")
