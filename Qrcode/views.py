@@ -61,9 +61,34 @@ def code1(request, url, title):
 
     # Create an image from the QR Code instance
     img = qr.make_image()
+    #img = "Qrcode/qrcodes/" + title + ".jpg"
+    #data = QRcodesForDishes(title=title, img=img)
+    # data.save()
     print(img)
     # Save it somewhere, change the extension as needed:
     # img.save("image.png")
     # img.save("image.bmp")
     # img.save("image.jpeg")
-    img.save(title + ".jpg")
+    img.save("Qrcode/qrcodes/" + title + ".jpg")
+
+
+def code2(request, url, title):
+    method = "basic"
+
+    data = "Some text that you want to store in the qrcode"
+
+    if method == 'basic':
+        # Simple factory, just a set of rects.
+        factory = qrcode.image.svg.SvgImage
+    elif method == 'fragment':
+        # Fragment factory (also just a set of rects)
+        factory = qrcode.image.svg.SvgFragmentImage
+    elif method == 'path':
+        # Combined path factory, fixes white space that may occur when zooming
+        factory = qrcode.image.svg.SvgPathImage
+
+    # Set data to qrcode
+    img = qrcode.make(data, image_factory=factory)
+
+    # Save svg file somewhere
+    img.save("qrcode.svg")
