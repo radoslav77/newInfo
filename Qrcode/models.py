@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from pyexpat import model
 from django.db import models
 
@@ -24,7 +25,8 @@ class GenarateCode(models.Model):
 class QRcodesForDishes(models.Model):
     title = models.CharField(max_length=200)
     outlet = models.CharField(max_length=200, default='q')
-    img = models.ImageField(upload_to='qrcodes')
+    #img = models.ImageField(upload_to='media')
+    img = models.TextField()
     date = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):

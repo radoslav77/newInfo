@@ -14,3 +14,10 @@ class QrCodeForm(forms.ModelForm):
         model = GenarateCode
 
         fields = '__all__'
+
+
+class QrCodeForm1(forms.ModelForm):
+    class Meta:
+        model = QRcodesForDishes
+
+        fields = ('title', 'outlet', 'img')

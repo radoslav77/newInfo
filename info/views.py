@@ -71,14 +71,15 @@ def detail(requets, title):
             detail_subrecipe = SharedRecipe.objects.filter(dish_title=sub_i.id)
             for r in detail_subrecipe:
                 sub.append(r)
-    code2(requets, url_path, title)
+
     svg = []
     for data in qr_code:
         svg.append(data.img)
+        print(data.date)
     if not qr_code:
-        code1(requets, url_path, title)
+        code2(requets, url_path, title, outlet)
         return redirect('Qrcode:index1')
-    # print(qr_code)
+    # print(svg)
     return render(requets, 'info/details.html', {
         'recipe': detail_recipe,
         'sub_title': sub_title,
@@ -421,9 +422,3 @@ def allergen_data(request):
             # 'data': i.date
         })
     return HttpResponse(json.dumps(allergen_data), content_type="application/json")
-
-
-def code(request, url):
-    if request.method == 'POST':
-        url_path = request.path
-        return redirect('Qrcode:index1')

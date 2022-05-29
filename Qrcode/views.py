@@ -1,17 +1,20 @@
+from asyncio import streams
 import imp
 from multiprocessing import context
 from turtle import title
 
-
+import os
+from django.core.files import File
 # Create your views here.
 from django.shortcuts import render
+#from numpy import tile
 import qrcode
 import qrcode.image.svg
 
 from io import BytesIO
 
 from Qrcode.models import GenarateCode, QRcodesForDishes
-from .forms import QrCodeForm
+from .forms import QrCodeForm1
 
 
 def index1(request):
@@ -37,9 +40,24 @@ def code(request, url, title, outlet):
     stream = BytesIO()
     img.save(stream)
     context["svg"] = stream.getvalue().decode()
-    data = QRcodesForDishes(title=title, img=context)
-    data.save()
-    print(img)
+    new_data = QRcodesForDishes(title=title, img=context)
+    new_data.save()
+
+
+'''
+    data = {'title': title,
+            'outlet': outlet,
+            'img': context,
+
+            }
+
+    form = QrCodeForm1(data)
+    if form.is_valid:
+        form_data = form.save(commit=False)
+        form_data.save()
+    print(form)
+'''
+# print(img)
 
 
 def code1(request, url, title):
@@ -62,20 +80,28 @@ def code1(request, url, title):
     # Create an image from the QR Code instance
     img = qr.make_image()
     #img = "Qrcode/qrcodes/" + title + ".jpg"
-    #data = QRcodesForDishes(title=title, img=img)
-    # data.save()
     print(img)
+    data = QRcodesForDishes(title=title, img=img)
+    # data.save()
+
     # Save it somewhere, change the extension as needed:
     # img.save("image.png")
     # img.save("image.bmp")
     # img.save("image.jpeg")
     img.save("Qrcode/qrcodes/" + title + ".jpg")
 
+    with open(img, 'rb') as qr_img:
+        print(qr_img)
+        #new_qr_code, created = QRcodesForDishes.objects.get_or_create(title=title, outlet=outlet, is_active=True, defaults={"user":get_user_profile, "qr_code":hex_code, "qr_code_img":File(qr_img), "upcoming_show":get_upcoming_show})
+        # if not created:
+        #     pass
 
-def code2(request, url, title):
+
+def code2(request, url, title, outlet):
+
     method = "basic"
 
-    data = "Some text that you want to store in the qrcode"
+    data = url
 
     if method == 'basic':
         # Simple factory, just a set of rects.
@@ -89,6 +115,11 @@ def code2(request, url, title):
 
     # Set data to qrcode
     img = qrcode.make(data, image_factory=factory)
+    stream = BytesIO()
+    img.save(stream)
+    image = stream.getvalue().decode()
 
+    data = QRcodesForDishes(title=title, outlet=outlet, img=image)
+    data.save()
     # Save svg file somewhere
-    img.save("qrcode.svg")
+   #
