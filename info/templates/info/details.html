@@ -37,6 +37,25 @@
         height: auto;
         border: solid 1px #000;
     }
+
+    #qrcode {
+        width: 10%;
+        height: auto;
+        border: 1px solid #000;
+        position: absolute;
+        top: 48%;
+        left: 10%;
+        text-align: center;
+
+    }
+
+    #QrBtn {
+        height: 20px;
+    }
+
+    .genarite {
+        height: 30px;
+    }
 </style>
 
 {% endblock %}
@@ -97,12 +116,16 @@
     <div class="subrecipe" id="allergent">
 
     </div>
-    <form action="" method="post">
-        <input type="text">
-        <input type="button" value="Create">
-    </form>
+
+
+
+
 </div>
-<div style="margin: auto">
+<div class="genarite">
+    <input type="button" value="Genarate QrCode" id="QrBtn">
+</div>
+
+<div id="qrcode" style="margin: auto">
     {% for s in svg %}
     {{ s|safe }}
     {% endfor %}
@@ -121,9 +144,11 @@
     const LineContainer = document.getElementById('line')
     const AllergenContainer = document.getElementById('allergent')
     const CaloriElement = document.getElementById('calory')
+    const QrCideContainer = document.getElementById('qrcode')
+    const QrBtnEl = document.getElementById('QrBtn')
 
-    QrCodeFormTitle.innerText = TitleRecipe
-    console.log(QrCodeFormTitle)
+    //QrCodeFormTitle.innerText = TitleRecipe
+    //console.log(QrCodeFormTitle)
 
     const i = RecipeContainer.innerText.split('\n')
     //console.log(i)
@@ -253,9 +278,23 @@
         })
         console.log(DaiteryContent)
     }
-    const UrlAddress = window.location.href
+    /*const UrlAddress = window.location.href
     UrlAddressConst.innerText = UrlAddress
-    console.log(UrlAddressConst)
+    console.log(UrlAddressConst)*/
+
+
+    QrCideContainer.style.display = 'none'
+    QrBtnEl.addEventListener('click', () => {
+        if (QrCideContainer.style.display === 'none') {
+            QrCideContainer.style.display = 'block'
+            QrBtnEl.value = 'Hide QR Code'
+        } else {
+            QrCideContainer.style.display = 'none'
+            QrBtnEl.value = 'Genarate QrCode'
+        }
+
+
+    })
 
 </script>
 

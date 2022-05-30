@@ -22,6 +22,7 @@ urlpatterns = [
     path('dishes', views.dishes, name='dishes'),
     path('allergent-input', views.allergent, name='allergent'),
     path('detail/<str:title>', views.detail, name='detail'),
+    path('menu-details/<str:title>', views.menu_details, name='menu_details'),
 
 
     # API

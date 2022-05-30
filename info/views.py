@@ -235,6 +235,14 @@ def menu(request):
     })
 
 
+def menu_details(request, title):
+    data = Menu.objects.all()
+    print(data)
+    return render(request, 'info/menu-info.html', {
+        'data': data
+    })
+
+
 @csrf_protect
 def beveridge(request):
     form = BeverageForm()
